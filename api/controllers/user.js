@@ -7,7 +7,7 @@ var path = require('path');
 var User = require('../models/user');
 var Follow = require('../models/follow');
 var jwt = require('../services/jwt');
-
+var Publicacion = require('../models/publicacion');
 
 function inicio (req, res) {
     res.status(200).send({
@@ -203,9 +203,14 @@ async function contadorFollow(usuarioId){
         return meSiguen;
     });
 
+    var publicaciones = await Publicacion.count({"user":usuarioId}).then((publicaciones) => {
+        return publicaciones;
+    });
+
     return {
         siguiendo: siguiendo,
-        meSiguen: meSiguen
+        meSiguen: meSiguen,
+        publicaciones: publicaciones
     }
 }
 
@@ -230,7 +235,7 @@ function updateUsuarios(req, res){
 
 function subirImagen(req, res){
     var usuarioId = req.params.id;
-    console.log(req.files);
+    
     if(req.files){
         var filePath = req.files.image.path;
         var fileSplit = filePath.split('\\');
