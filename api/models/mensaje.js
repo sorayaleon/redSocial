@@ -3,9 +3,10 @@
 var mongoose = require('mongoose');
 var schema = mongoose.Schema;
 var mensajeSchema = schema({
-    emisor: {type: Schema.ObjectId,  ref: 'User'},
-    receptor: {type: Schema.ObjectId,  ref: 'User'},
-    texto: String,
+    emitter: {type: schema.ObjectId,  ref: 'User'},
+    receiver: {type: schema.ObjectId,  ref: 'User'},
+    text: String,
+    viewed: String,
     created_at: String
 });
 
